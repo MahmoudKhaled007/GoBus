@@ -3,8 +3,8 @@ exports.openConnection = () => {
         client: 'mysql',
         connection: {
             host: '127.0.0.1',
-            user: 'root',
-            password: 'khokhe&duke@mysql89',
+            user: 'karim',
+            password: '26713546',
             database: 'go_bus'
         }
     });

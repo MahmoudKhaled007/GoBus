@@ -7,7 +7,7 @@ const conn = require("./db/connection")
 
 
 const ADRouter = require("./routes/admin")
-const passengerRouter = require("./routes/passenger")
+//const passengerRouter = require("./routes/passenger")
 app.use(morgan("dev"))
 app.use(cors())
 app.use(bodyPareser.urlencoded({
@@ -21,7 +21,7 @@ app.locals.knex = knex
 
 
 app.use("/AD",ADRouter)
-app.use("/passenger",passengerRouter)
+//app.use("/passenger",passengerRouter)
 
 
 app.use((req, res, next) => {

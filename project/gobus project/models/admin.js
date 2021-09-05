@@ -1,11 +1,11 @@
 class AD {
-    constructor(id, code, name, phoneNum, email, password, hashedPassword) {
+    constructor(id, Code, Name, PhoneNum, Email, Password, hashedPassword) {
         this.id = id
-        this.code = code
-        this.phoneNum = phoneNum
-        this.name = name
-        this.email = email
-        this.password = password
+        this.Code = Code
+        this.PhoneNum = PhoneNum
+        this.Name = Name
+        this.Email = Email
+        this.Password = Password
         this.hashedPassword = hashedPassword
     }
 }

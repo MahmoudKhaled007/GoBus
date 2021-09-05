@@ -3,8 +3,8 @@ const AD = require("../models/admin")
 
 exports.selectADs = (request, response) => {
     const knex = request.app.locals.knex
-    knex("ADs")
-        .select("id", "code", "name", "phone", "email")
+    knex("ads")
+        .select("id", "Code", "Name", "PhoneNum", "Email")
         .then(ADs => {
             response.status(200).json(ADs)
         })
@@ -20,13 +20,13 @@ exports.selectADs = (request, response) => {
 exports.addAD = (request, response) => {
     const knex = request.app.locals.knex
 
-    const name = request.body.name
-    const code = request.body.code
-    const phone = request.body.phone
-    const email = request.body.email
-    const password = request.body.password
+    const Name = request.body.Name
+    const Code = request.body.Code
+    const PhoneNum = request.body.PhoneNum
+    const Email = request.body.Email
+    const Password = request.body.Password
 
-    if (!name || !code || !phone || !email || !password) {
+    if (!Name || !Code || !PhoneNum || !Email || !Password) {
         return response.status(400).json({
             status: "error",
             msg: "400 Bad Request"
@@ -35,19 +35,19 @@ exports.addAD = (request, response) => {
 
 
 
-    bcrypt.hash(password, 10, function (err, hash) {
+    bcrypt.hash(Password, 10, function (err, hash) {
         if (err) {
             console.log(err);
         }
-        const ad = new AD('1', code, phone, name, email, password, hash)
+        const ad = new AD('1', Code, PhoneNum, Name, Email, Password, hash)
 
-        knex("ADs")
+        knex("ads")
             .insert({
-                name: ad.name,
-                code: ad.code,
-                phone: ad.phone,
-                email: ad.email,
-                password: ad.hashedPassword,
+                Name: ad.Name,
+                Code: ad.Code,
+                PhoneNum: ad.PhoneNum,
+                Email: ad.Email,
+                Password: ad.hashedPassword,
             })
             .then(data => {
                 response.status(201).json({
@@ -74,23 +74,23 @@ exports.login = (request, response) => {
 
     const knex = request.app.locals.knex
 
-    const email = request.body.email
-    const password = request.body.password
-    if (!email || !password) {
+    const Email = request.body.Email
+    const Password = request.body.Password
+    if (!Email || !Password) {
         return response.status(400).json({
             status: "error",
             msg: "400 Bad Request"
         })
     }
 
-    knex("ADs")
-        .select('email', 'password')
+    knex("ads")
+        .select('E-mail', 'Password')
         .limit(1)
-        .where('email', '=', email)
+        .where('E-mail', '=', Email)
         .then(AD => {
             console.log(AD);
             if (AD[0] != null) {
-                bcrypt.compare(password, AD[0].password, (error, result) => {
+                bcrypt.compare(Password, AD[0].Password, (error, result) => {
                     if (error) {
                         console.log(error);
                     }
@@ -102,7 +102,7 @@ exports.login = (request, response) => {
                     } else {
                         response.status(401).json({
                             status: "error",
-                            msg: "invalid password"
+                            msg: "invalid Password"
                         })
                     }
                 })
