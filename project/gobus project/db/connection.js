@@ -2,9 +2,9 @@ exports.openConnection = () => {
     const knex = require('knex')({
         client: 'mysql',
         connection: {
-            host: '127.0.0.1',
-            user: 'karim',
-            password: '26713546',
+            host: 'localhost',
+            user: 'root',
+            password: 'mahmoud2001',
             database: 'go_bus'
         }
     });
