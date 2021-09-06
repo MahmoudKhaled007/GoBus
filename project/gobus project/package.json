@@ -1,10 +1,10 @@
 {
   "name": "session-9-1-9",
   "version": "1.0.0",
+  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
@@ -16,7 +16,5 @@
     "knex": "^0.95.10",
     "morgan": "^1.10.0",
     "mysql": "^2.18.1"
-  },
-  "devDependencies": {},
-  "description": ""
+  }
 }

@@ -39,8 +39,8 @@ exports.addAD = (request, response) => {
         if (err) {
             console.log(err);
         }
-        const ad = new AD('1', Code, PhoneNum, Name, Email, Password, hash)
-
+        const ad = new AD('1', Code, PhoneNum, Name, Email, Password, "")
+        ad.hashedPassword = hash
         knex("ads")
             .insert({
                 Name: ad.Name,
@@ -84,9 +84,9 @@ exports.login = (request, response) => {
     }
 
     knex("ads")
-        .select('E-mail', 'Password')
+        .select('Email', 'Password')
         .limit(1)
-        .where('E-mail', '=', Email)
+        .where('Email', '=', Email)
         .then(AD => {
             console.log(AD);
             if (AD[0] != null) {
@@ -102,7 +102,7 @@ exports.login = (request, response) => {
                     } else {
                         response.status(401).json({
                             status: "error",
-                            msg: "invalid Password"
+                            msg: "invalid password"
                         })
                     }
                 })
