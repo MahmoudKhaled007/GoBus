@@ -1,8 +1,10 @@
 const bcrypt = require("bcrypt")
 const pass = require("../models/Passenger")
+const joi= require("joi")
 
 exports.selectUser = (request, response) => {
     const knex = request.app.locals.knex
+
     knex("passenger")
         .select("id", "Code", "Name", "PhoneNum", "Email")
         .then(passenger => {
@@ -33,14 +35,43 @@ exports.addUser = (request, response) => {
         })
     }
 
+        const pas = new pass("1", Code,  Name,PhoneNum, Email, Password, 'has')
+        const Scheme=joi.object({
+            id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+
+            Name: joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{3,20}/).required(),
+            Code : joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),
+            PhoneNum :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{11}/).required(),
+            Email  :joi.string().not().empty().min(2).max(20).pattern(/[a-z A-Z]{10,100}/).required() ,      
+    
+            Password: joi.string().min(6).max(20).required(),
+            hashedPassword: joi.string().min(1).max(100).required(),
+        })
 
 
-    bcrypt.hash(Password, 10, function (err, hash) {
-        if (err) {
-            console.log(err);
+        const joiErrorr= Scheme.validate(pas)
+        if (joiErrorr.error) {
+
+            console.log(joiErrorr.error.details);
+            return response.status(400).json({
+                status: "error",
+                msg: "400 Bad Request JOI"
+            })
         }
-        const pas = new pass('1', Code, PhoneNum, Name, Email, Password, "")
-        pas.hashedPassword = hash
+
+        bcrypt.hash(Password, 10, function (err, hash) {
+            if (err) {
+                console.log(err);
+    
+                return response.status(500).json({
+                    status: "error",
+                    msg: "500 internal server error"
+                })
+            }
+       
+            pas.hashedPassword = hash
+
+
         knex("passenger")
             .insert({
                 Code: pas.Code,
@@ -58,9 +89,9 @@ exports.addUser = (request, response) => {
             })
             .catch(error => {
                 console.log(error);
-                response.status(500).json({
+                response.status(400).json({
                     status: "error",
-                    msg: "500 Internal Server Error"
+                    msg: "400 Bad Request ADD USER"
                 })
             })
 
