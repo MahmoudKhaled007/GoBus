@@ -1,7 +1,7 @@
 const bcrypt = require("bcrypt")
 const AD = require("../models/admin")
-const jwt = require('jsonwebtoken');
-
+const jwt = require("jsonwebtoken");
+const joi = require("joi")
 exports.selectADs = (request, response) => {
     const knex = request.app.locals.knex
     knex("ads")
@@ -36,11 +36,31 @@ exports.addAD = (request, response) => {
 
 
 
-    bcrypt.hash(Password, 10, function (err, hash) {
-        if (err) {
-            console.log(err);
+    
+        const ad = new AD('1', Code, PhoneNum, Name, Email, Password, "has")
+        const adSchema=joi.object({
+         id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+          code:joi.string().not().empty().min(2).max(50).required(),
+          PhoneNum:joi.string().pattern(/[0-9]{11}/).required(),
+          Name:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
+          Email:joi.string().min().max(60).required(),
+          Password:joi.string().min(6).max(20).required(),
+            hashedPassword:joi.string().min(1).max(200).required(),
+        })
+        const joiError=adSchema.validate(ad);
+        if(joiError.error){
+            console.log("joiError");
+            console.log(joiError.error.details);
+            return response.status(400).json({
+status:"error",
+msg:"400 bad Request"
+
+            })
         }
-        const ad = new AD('1', Code, PhoneNum, Name, Email, Password, "")
+        bcrypt.hash(Password, 10, function (err, hash) {
+            if (err) {
+                console.log(err);
+            }
         ad.hashedPassword = hash
         knex("ads")
             .insert({

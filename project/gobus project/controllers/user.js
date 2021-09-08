@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt")
 const pass = require("../models/Passenger")
 const jwt = require('jsonwebtoken');
+const joi = require("joi")
 
 
 exports.selectUser = (request, response) => {
@@ -35,16 +36,29 @@ exports.addUser = (request, response) => {
             msg: "400 Bad Request"
         })
     }
+    const pas = new pass('1', Code, PhoneNum, Name, Email, Password, "2345")
 
-    jwt.verify(token,'123456',(error,data)=>{
-        if(error){
-            return response.status(400).json({
-                status: "error",
-                msg: "not Auth"
-            })
-        }
-        else{
-             console.log("data:: ",data);
+    const adSchema=joi.object({
+        id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+         code:joi.string().not().empty().min(2).max(50).required(),
+         PhoneNum:joi.string().pattern(/[0-9]{11}/).required(),
+         Name:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
+         Email:joi.string().min().max(60).required(),
+         Password:joi.string().min(6).max(20).required(),
+           hashedPassword:joi.string().min(1).max(200).required(),
+       })
+       const joiError=adSchema.validate(pas);
+       if(joiError.error){
+           console.log("joiError");
+           console.log(joiError.error.details);
+           return response.status(400).json({
+status:"error",
+msg:"400 bad Request"
+
+           })
+       }
+    
+             //console.log("data:: ",data);
             bcrypt.hash(Password, 10,(err, hash) =>{
             if(error){
                 console.log(error);
@@ -58,7 +72,6 @@ exports.addUser = (request, response) => {
     
     
         
-        const pas = new pass('1', Code, PhoneNum, Name, Email, Password, "")
         pas.hashedPassword = hash
         knex("passenger")
             .insert({
@@ -85,10 +98,10 @@ exports.addUser = (request, response) => {
 
 
 
-    });
+   // });
 
 
-}
+
 
 exports.login = (request, response) => {
 
