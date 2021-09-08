@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt")
 const AD = require("../models/admin")
+const jwt = require('jsonwebtoken');
 
 exports.selectADs = (request, response) => {
     const knex = request.app.locals.knex
@@ -94,8 +95,14 @@ exports.login = (request, response) => {
                     if (error) {
                         console.log(error);
                     }
+                    
                     if (result) {
+                        const token = jwt.sign({
+                            userEmail:AD[0].Email,
+                            userType:'AD'
+                        },"123456", {})
                         response.status(200).json({
+                            token : token,
                             status: "ok",
                             msg: "login"
                         })
