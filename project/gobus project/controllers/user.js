@@ -40,20 +40,20 @@ exports.addUser = (request, response) => {
 
     const adSchema=joi.object({
         id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
-         code:joi.string().not().empty().min(2).max(50).required(),
-         PhoneNum:joi.string().pattern(/[0-9]{11}/).required(),
-         Name:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
-         Email:joi.string().min().max(60).required(),
-         Password:joi.string().min(6).max(20).required(),
-           hashedPassword:joi.string().min(1).max(200).required(),
+        code:joi.string().not().empty().min(2).max(50).required(),
+        PhoneNum:joi.string().pattern(/[0-9]{11}/).required(),
+        Name:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
+        Email:joi.string().min().max(60).required(),
+        Password:joi.string().min(6).max(20).required(),
+        hashedPassword:joi.string().min(1).max(200).required(),
        })
        const joiError=adSchema.validate(pas);
        if(joiError.error){
            console.log("joiError");
            console.log(joiError.error.details);
            return response.status(400).json({
-status:"error",
-msg:"400 bad Request"
+           status:"error",
+           msg:"400 bad Request"
 
            })
        }
@@ -68,7 +68,7 @@ msg:"400 bad Request"
             })
         }
         }) 
-   }
+   
     
     
         
@@ -100,8 +100,8 @@ msg:"400 bad Request"
 
    // });
 
-
-
+}
+        
 
 exports.login = (request, response) => {
 
@@ -121,30 +121,35 @@ exports.login = (request, response) => {
         .limit(1)
         .where('Email', '=', Email)
         .then(pas => {
-            console.log(pas);
-            if (pas[0] != null) {
-                bcrypt.compare(Password, pas[0].Password, (error, result) => {
+            if (pas[0] == null) {
+                return response.status(401).json({
+                    status: "error",
+                    msg: "invalid email"
+                })
+            } else {
+                bcrypt.compare(password, pas[0].password, (error, result) => {
                     if (error) {
                         console.log(error);
                     }
                     if (result) {
-                        response.status(200).json({
+                        const token = jwt.sign({
+                            passCode: pas[0].code,
+                            usertype: "pass"
+                        }, '12345', {})
+
+                        return response.status(200).json({
                             status: "ok",
-                            msg: "login"
+                            msg: "Login",
+                            token
                         })
                     } else {
-                        response.status(401).json({
+                        return response.status(401).json({
                             status: "error",
                             msg: "invalid password"
                         })
                     }
                 })
 
-            } else {
-                response.status(401).json({
-                    status: "error",
-                    msg: "401 not Auth"
-                })
             }
         })
         .catch(error => {

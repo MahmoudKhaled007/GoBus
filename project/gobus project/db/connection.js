@@ -3,11 +3,13 @@ exports.openConnection = () => {
         client: 'mysql',
         connection: {
             host: 'localhost',
-            user: 'root',
-            password: '56734',
+            user: 'karim',
+            password: '26713546',
             database: 'go_bus'
         }
     });
 
     return knex
 }//mahmoud2001
+//karim /26713546
+//56734

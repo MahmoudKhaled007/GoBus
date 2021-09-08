@@ -1,10 +1,10 @@
-const jwt=requier("jsonwebtoken")
+const jwt = require("jsonwebtoken")
 exports.checkADAuth=(Request,response,next)=>{
     const token =request.body.token
     if(!token){
-    return response.status(401).json({
-    statyse:"error",
-    msg:"401 not auth"
+        return response.status(401).json({
+        statyse:"error",
+        msg:"401 not auth"
     
     
     })
