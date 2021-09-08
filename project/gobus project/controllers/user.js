@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt")
 const pass = require("../models/Passenger")
+const jwt = require('jsonwebtoken');
+
 
 exports.selectUser = (request, response) => {
     const knex = request.app.locals.knex
@@ -25,20 +27,37 @@ exports.addUser = (request, response) => {
     const PhoneNum = request.body.PhoneNum
     const Email = request.body.Email
     const Password = request.body.Password
+    const token = request.body.token
 
-    if (!Name || !Code || !PhoneNum || !Email || !Password) {
+    if (!Name || !Code || !PhoneNum || !Email || !Password || !token) {
         return response.status(400).json({
             status: "error",
             msg: "400 Bad Request"
         })
     }
 
-
-
-    bcrypt.hash(Password, 10, function (err, hash) {
-        if (err) {
-            console.log(err);
+    jwt.verify(token,'123456',(error,data)=>{
+        if(error){
+            return response.status(400).json({
+                status: "error",
+                msg: "not Auth"
+            })
         }
+        else{
+             console.log("data:: ",data);
+            bcrypt.hash(Password, 10,(err, hash) =>{
+            if(error){
+                console.log(error);
+                return response.status(500).json({
+                    status: "error",
+                    msg: "500 Internal Server Error"
+            })
+        }
+        }) 
+   }
+    
+    
+        
         const pas = new pass('1', Code, PhoneNum, Name, Email, Password, "")
         pas.hashedPassword = hash
         knex("passenger")
