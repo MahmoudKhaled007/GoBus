@@ -47,6 +47,7 @@ exports.checkPassAuth=(Request,response,next)=>{
 
 
 }
+
 // const jwt = require("jsonwebtoken")
 
 // exports.checkADAuth = (request, response, next) => {
