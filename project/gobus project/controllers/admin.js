@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt")
 const AD = require("../models/admin")
+const jwt = require('jsonwebtoken');
 const joi= require("joi")
 
 exports.selectADs = (request, response) => {
