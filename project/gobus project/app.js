@@ -37,7 +37,7 @@ app.use((error, req, res, next) => {
     if (error.status = 404) {
         res.status(404).json({
             status: "error",
-            msg: "Page not Found"
+            msg: "Page not Found!!!"
         })
     }
 })
