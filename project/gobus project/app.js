@@ -8,7 +8,7 @@ const conn = require("./db/connection")
 
 const ADRouter = require("./routes/admin")
 const PassRouter = require("./routes/pass")
-const busRouter = require("./routes/bus")
+
 //const passengerRouter = require("./routes/passenger")
 app.use(morgan("dev"))
 app.use(cors())
@@ -24,7 +24,6 @@ app.locals.knex = knex
 
 app.use("/AD",ADRouter)
 app.use("/pass",PassRouter)
-app.use("/bus",busRouter)
 
 
 app.use((req, res, next) => {
