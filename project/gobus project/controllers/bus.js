@@ -38,7 +38,7 @@ exports.addBus = (request, response) => {
     }
     const buss = new bus('1', Code, BusClass, BookedSeats, AvailSeats)
 
-    /*const adSchema=joi.object({
+    const adSchema=joi.object({
         id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
         Code:joi.string().not().empty().min(1).max(50).required(),
         BusClass:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
@@ -55,7 +55,7 @@ exports.addBus = (request, response) => {
            msg:"400 bad Request"
 
            })
-       }*/
+       }
     
              //console.log("data:: ",data);
             //bcrypt.hash(Password, 10,(err, hash) =>{
