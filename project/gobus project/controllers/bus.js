@@ -40,10 +40,10 @@ exports.addBus = (request, response) => {
 
     const adSchema=joi.object({
         id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
-        code:joi.string().not().empty().min(2).max(50).required(),
+        Code:joi.string().not().empty().min(1).max(50).required(),
         BusClass:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
-        BookedSeats:joi.string().min().max(60).required(),
-        AvailSeats:joi.string().min().max(60).required(),
+        BookedSeats:joi.string().min(1).max(60).required(),
+        AvailSeats:joi.string().min(1).max(60).required(),
 
        })
        const joiError=adSchema.validate(buss);
