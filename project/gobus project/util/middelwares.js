@@ -1,55 +1,15 @@
-const jwt=requier("jsonwebtoken")
-// exports.checkADAuth=(Request,response,next)=>{
-//     const token =request.body.token
-//     if(!token){
-//     return response.status(401).json({
-//     statyse:"error",
-//     msg:"401 not auth"
-    
-    
-//     })
+const jwt=require("jsonwebtoken")
+
     exports.checkADAuth=(Request,response,next)=>{
-        const headerData =request.header.authorazation.split(" ")
+    const headerData =Request.headers.authorazation.split(" ")
+        
         const token = headerData[1]
 
-        if(!token){
-        return response.status(401).json({
-        statyse:"error",
-        msg:"401 not auth"
-        
-        
-        })
-        
-    
-    }else{
-    
-        jwt.verify(token,'123456',(error,data)=>{
-            if(erorr){
-                return response.status(401).json({
-                    statyse:"error",
-                    msg:"401 not auth"
-                    
-                    
-                    })
-
-            }else{
-                next()
-
-
-            }
-
-        })
+        console.log(headerData);
     }
-    
-    
-    
-    
-  
-
-}
 
 exports.checkPassAuth=(Request,response,next)=>{
-    const headerData =request.header.authorazation.split(" ")
+    const headerData =request.headers.authorazation.split(" ")
     const token = headerData[1]
     
     if(!token){
@@ -64,9 +24,9 @@ exports.checkPassAuth=(Request,response,next)=>{
 }else{
 
     jwt.verify(token,'12345',(error,data)=>{
-        if(erorr){
+        if(error){
             return response.status(401).json({
-                statyse:"error",
+                status:"error",
                 msg:"401 not auth"
                 
                 
@@ -87,3 +47,28 @@ exports.checkPassAuth=(Request,response,next)=>{
 
 
 }
+// const jwt = require("jsonwebtoken")
+
+// exports.checkADAuth = (request, response, next) => {
+//     const token = request.body.token
+
+//     if (!token) {
+//         return response.status(401).json({
+//             status:"error",
+//             msg:"401 not Auth"
+//         })
+//     }else{
+//         jwt.verify(token, '123456', (error, data) => {
+//             if (error) {
+//                 return response.status(401).json({
+//                     status:"error",
+//                     msg:"401 not Auth"
+//                 })
+//             } else {
+//                 next()
+//             }
+//         })
+        
+//     }
+    
+// }

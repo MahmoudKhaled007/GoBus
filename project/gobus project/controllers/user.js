@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt")
 const pass = require("../models/Passenger")
+const jwt = require('jsonwebtoken');
+
 const joi= require("joi")
 
 exports.selectUser = (request, response) => {
@@ -127,9 +129,17 @@ exports.login = (request, response) => {
                         console.log(error);
                     }
                     if (result) {
+
+
+
+                        const token = jwt.sign({
+                            userEmail: pas[0].Email,
+                            usertype: 'Passenger'
+                        }, "12345", {})
                         response.status(200).json({
                             status: "ok",
-                            msg: "login"
+                            msg: "login",
+                            token
                         })
                     } else {
                         response.status(401).json({
@@ -154,3 +164,4 @@ exports.login = (request, response) => {
             })
         })
 }
+
