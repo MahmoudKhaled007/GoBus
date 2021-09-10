@@ -5,5 +5,6 @@ const TripController = require("../controllers/trip")
 
 tripRouter.get("/",TripController.selectTrip)
 tripRouter.post("",TripController.addTrip)
+tripRouter.put("/update",TripController.updateTrip)
 
 module.exports = tripRouter
