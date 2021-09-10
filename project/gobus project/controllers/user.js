@@ -131,7 +131,7 @@ exports.login = (request, response) => {
                     if (result) {
 
 
-
+                        
                         const token = jwt.sign({
                             userEmail: pas[0].Email,
                             usertype: 'Passenger'

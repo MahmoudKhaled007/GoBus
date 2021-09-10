@@ -73,3 +73,26 @@ exports.checkADAuth = (request, response, next) => {
     }
     
 }
+exports.checkpasAuth = (request, response, next) => {
+    const token = request.body.token
+
+    if (!token) {
+        return response.status(401).json({
+            status:"error",
+            msg:"401 not Auth"
+        })
+    }else{
+        jwt.verify(token, '12345', (error, data) => {
+            if (error) {
+                return response.status(401).json({
+                    status:"error",
+                    msg:"401 not Auth"
+                })
+            } else {
+                next()
+            }
+        })
+        
+    }
+    
+}
