@@ -74,8 +74,8 @@ exports.checkADAuth = (request, response, next) => {
     
 }
 exports.checkpasAuth = (request, response, next) => {
-    const token = request.body.token
-
+    const headerData = request.headers.authorization.split(" ")
+    const token = headerData[1]
     if (!token) {
         return response.status(401).json({
             status:"error",
