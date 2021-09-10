@@ -26,24 +26,24 @@ exports.addUser = (request, response) => {
 
     const Name = request.body.Name
     const Code = request.body.Code
-    //const PhoneNum = request.body.PhoneNum
+    const PhoneNum = request.body.PhoneNum
     const Email = request.body.Email
     const Password = request.body.Password
 
-    if (!Name || !Code  || !Email || !Password) {
+    if (!Name || !Code || !PhoneNum || !Email || !Password) {
         return response.status(400).json({
             status: "error",
-            msg: "400 Bad Request a7a"
+            msg: "400 Bad Request"
         })
     }
 
         const pas = new pass("1", Code,  Name,PhoneNum, Email, Password, 'has')
-       /* const Scheme=joi.object({
+        const Scheme=joi.object({
             id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
 
             Name: joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{3,20}/).required(),
             Code : joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),
-            //PhoneNum :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{11}/).required(),
+            PhoneNum :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{11}/).required(),
             Email  :joi.string().not().empty().min(2).max(20).pattern(/[a-z A-Z]{10,100}/).required() ,      
     
             Password: joi.string().min(6).max(20).required(),
@@ -59,7 +59,7 @@ exports.addUser = (request, response) => {
                 status: "error",
                 msg: "400 Bad Request JOI"
             })
-        }*/
+        }
 
         bcrypt.hash(Password, 10, function (err, hash) {
             if (err) {
@@ -81,10 +81,7 @@ exports.addUser = (request, response) => {
 
                 Name: pas.Name,
                 Password: pas.hashedPassword,
-                PhoneNum: knex("passenger")
-                            .select('Email')
-                            .limit(1)
-                            .where('Email', '=', Email),
+                PhoneNum: pas.PhoneNum,
             })
             .then(data => {
                 response.status(201).json({
@@ -134,7 +131,7 @@ exports.login = (request, response) => {
                     if (result) {
 
 
-
+                        
                         const token = jwt.sign({
                             userEmail: pas[0].Email,
                             usertype: 'Passenger'

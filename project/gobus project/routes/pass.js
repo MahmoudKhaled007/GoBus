@@ -4,7 +4,7 @@ const PasController = require("../controllers/user")
  const MiddelWares = require("../util/middelwares")
 
 PasRouter.get("/",PasController.selectUser)
-PasRouter.post("",MiddelWares.checkADAuth,PasController.addUser)
+PasRouter.post("",PasController.addUser)
 PasRouter.post("/login",PasController.login)
 
 module.exports = PasRouter
