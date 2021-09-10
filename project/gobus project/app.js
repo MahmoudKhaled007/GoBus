@@ -9,6 +9,7 @@ const conn = require("./db/connection")
 const ADRouter = require("./routes/admin")
 const PassRouter = require("./routes/pass")
 const busRouter = require("./routes/bus")
+const tripRouter = require("./routes/trip")
 //const passengerRouter = require("./routes/passenger")
 app.use(morgan("dev"))
 app.use(cors())
@@ -25,7 +26,7 @@ app.locals.knex = knex
 app.use("/AD",ADRouter)
 app.use("/pass",PassRouter)
 app.use("/bus",busRouter)
-
+app.use("/trip",tripRouter)
 app.use((req, res, next) => {
 
     const error = new Error("Page not Found")

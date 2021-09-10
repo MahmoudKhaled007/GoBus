@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt")
+// const bcrypt = require("bcrypt")
 const bus = require("../models/bus")
 const jwt = require('jsonwebtoken');
 const joi = require("joi")
@@ -27,7 +27,7 @@ exports.addBus = (request, response) => {
     const BusClass = request.body.BusClass
     const BookedSeats = request.body.BookedSeats
     const AvailSeats = request.body.AvailSeats
-    
+
     
 
     if (!Code || !BusClass || !BookedSeats || !AvailSeats) {
@@ -56,22 +56,7 @@ exports.addBus = (request, response) => {
 
            })
        }
-    
-             //console.log("data:: ",data);
-            //bcrypt.hash(Password, 10,(err, hash) =>{
-            //if(error){
-              //  console.log(error);
-                //return response.status(500).json({
-                  //  status: "error",
-                    //msg: "500 Internal Server Error"
-            //})
-        //}
-        //}) 
-   
-    
-    
-        
-        //pas.hashedPassword = hash
+                 
         knex("bus")
             .insert({
                 Code: buss.Code,
