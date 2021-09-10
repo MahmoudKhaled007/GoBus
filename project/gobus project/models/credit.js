@@ -1,6 +1,6 @@
-// const payment = require("./payment")
-// const p = new payment(id,"Credit")
-// const Payment_id2=p.id
+const payment = require("./payment")
+const p = new payment(id,"Credit")
+const Payment_id2=p.id
 
 class credit{
     
