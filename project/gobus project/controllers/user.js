@@ -165,3 +165,48 @@ exports.login = (request, response) => {
         })
 }
 
+exports.updatePass = (request, response) => {
+    const knex = request.app.locals.knex
+
+    const Name = request.body.Name
+    const Code = request.body.Code
+    const PhoneNum = request.body.PhoneNum
+    const Email = request.body.Email
+    const Password = request.body.Password
+
+    if (!Name || !Code || !PhoneNum || !Email) {
+
+        return response.status(400).json({
+            status: "error",
+            msg: "400 Bad Request"
+        })
+
+    }
+
+    const pas = new pass("", Code,  Name,PhoneNum, Email, Password, 'has')
+    knex('passenger')
+        .where('Code', '=', pas.Code)
+        .update({
+                Code: pas.Code,
+                Email: pas.Email,
+
+                Name: pas.Name,
+                Password: pas.hashedPassword,
+                PhoneNum: pas.PhoneNum,
+        })
+        .then(data => {
+            response.status(200).json({
+                status: "ok",
+                msg: "updated"
+            })
+        })
+        .catch(err => {
+            console.log("error");
+
+            response.status(500).json({
+                status: "error",
+                msg: "500 Internal Server Error"
+            })
+        })
+
+}
