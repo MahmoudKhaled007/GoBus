@@ -115,55 +115,6 @@ exports.updateTrip = (request, response) => {
 }
 
 
-// exports.updateTrip = (request, response) => {
-//     const knex = request.app.locals.knex
-
-//     const Code= request.body.Code
-//     const DepTime = request.body.DepTime
-//     const ArTime = request.body.ArTime
-//     const SeatNumber = request.body.SeatNumber
-//     const bus_id = request.body.bus_id
-
-// if(!Code||!DepTime||!ArTime||!SeatNumber||!bus_id){
-//     return response.status(400).json({
-//         status: "error",
-//         msg: "400 Bad Request"
-//     })
-
-// }
-
-
-// const trip2= new trip ("",Code,DepTime,ArTime,SeatNumber,bus_id)
-
-//     knex('trip')
-//     .where('Code', '=', trip2.Code)
-//     .update({
-//          Code: trip2.Code,
-//          DepTime : trip2.DepTime,
-//          ArTime : trip2.ArTime,
-//          SeatNumber : trip2.SeatNumber,
-//          bus_id : trip2.bus_id,
-//     })
- 
-//     .then(data => {
-//         response.status(200).json({
-//             status: "ok",
-//             msg: "updated"
-//         })
-//     })
-//     .catch(err => {
-//         console.log("error");
-
-//         response.status(500).json({
-//             status: "error",
-//             msg: "500 Internal Server Error"
-//         })
-//     })
-
-// }
-
-
-
 
 
 
