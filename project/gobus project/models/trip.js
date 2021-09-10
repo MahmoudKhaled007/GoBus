@@ -1,6 +1,6 @@
-// const bus = require("./bus")
-// const buss_obj= new bus(id, Code, BusClass, BookedSeats, AvailSeats)
-// const buss_id=buss_obj.id
+const bus = require("./bus")
+const buss_obj= new bus(id, Code, BusClass, BookedSeats, AvailSeats)
+const buss_id=buss_obj.id
 
 class trip {
 constructor(id,Code,DepTime,ArTime,SeatNumber,bus_id){
