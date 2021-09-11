@@ -6,7 +6,8 @@ const TripController = require("../controllers/trip")
 tripRouter.get("/",TripController.selectTrip)
 tripRouter.post("",TripController.addTrip)
 tripRouter.put("/:id",TripController.updateTrip)
-tripRouter.delete("",TripController.deleteTrip)
+tripRouter.delete("/:id",TripController.deleteTrip)
+tripRouter.patch("/:id",TripController.restoreTrip)
 
 module.exports = tripRouter
 

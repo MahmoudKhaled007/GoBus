@@ -10,6 +10,9 @@ const ADRouter = require("./routes/admin")
 const PassRouter = require("./routes/pass")
 const tripRouter = require("./routes/trip")
 const CreditRouter = require("./routes/credit")
+const BusRouter = require("./routes/bus")
+
+
 //const passengerRouter = require("./routes/passenger")
 app.use(morgan("dev"))
 app.use(cors())
@@ -27,6 +30,7 @@ app.use("/AD",ADRouter)
 app.use("/pass",PassRouter)
 app.use("/trip",tripRouter)
 app.use("/credit",CreditRouter)
+app.use("/bus",BusRouter)
 
 app.use((req, res, next) => {
 
