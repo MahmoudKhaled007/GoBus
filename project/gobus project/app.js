@@ -12,7 +12,7 @@ const tripRouter = require("./routes/trip")
 const CreditRouter = require("./routes/credit")
 const BusRouter = require("./routes/bus")
 const TicketRouter = require("./routes/ticket")
-
+const PaymentRauter=require("./routes/payment")
 
 //const passengerRouter = require("./routes/passenger")
 app.use(morgan("dev"))
@@ -33,6 +33,7 @@ app.use("/trip",tripRouter)
 app.use("/credit",CreditRouter)
 app.use("/bus",BusRouter)
 app.use("/ticket",TicketRouter)
+app.use("/payment",PaymentRauter)
 
 app.use((req, res, next) => {
 
