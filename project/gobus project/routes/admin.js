@@ -8,6 +8,4 @@ ADRouter.post("/login",ADController.login)
 
 
 
-
-
 module.exports = ADRouter

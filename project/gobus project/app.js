@@ -27,6 +27,7 @@ app.use("/AD",ADRouter)
 app.use("/pass",PassRouter)
 app.use("/bus",busRouter)
 app.use("/trip",tripRouter)
+
 app.use((req, res, next) => {
 
     const error = new Error("Page not Found")
