@@ -11,6 +11,7 @@ const PassRouter = require("./routes/pass")
 const tripRouter = require("./routes/trip")
 const CreditRouter = require("./routes/credit")
 const BusRouter = require("./routes/bus")
+const TicketRouter = require("./routes/ticket")
 
 
 //const passengerRouter = require("./routes/passenger")
@@ -31,6 +32,7 @@ app.use("/pass",PassRouter)
 app.use("/trip",tripRouter)
 app.use("/credit",CreditRouter)
 app.use("/bus",BusRouter)
+app.use("/ticket",TicketRouter)
 
 app.use((req, res, next) => {
 
