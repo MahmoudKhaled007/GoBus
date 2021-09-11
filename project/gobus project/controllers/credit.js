@@ -18,7 +18,24 @@ exports.addCredit = (request, response) => {
         })
     }
     const credit2 = new credit('1', CardNumber,  CvC , ExpireDate, Payment_id)
+    const Scheme=joi.object({
+        id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+        CardNumber:joi.string().min(16).max(18).required(),
+        CvC : joi.string().min(3).max(4).required(),
+        ExpireDate :joi.string().min(1).max(4).required(),
+        Payment_id  :joi.string().min(1).max(50).required(),      
 
+    })
+
+    const joiErrorr= Scheme.validate(credit2)
+    if (joiErrorr.error) {
+
+        console.log(joiErrorr.error.details);
+        return response.status(400).json({
+            status: "error",
+            msg: "400 Bad Request JOI"
+        })
+    }
     
         
             bcrypt.hash(CardNumber, 10, function (err, hash) {
@@ -93,7 +110,6 @@ exports.addCredit = (request, response) => {
     const credit2 = new credit('1', CardNumber,  CvC , ExpireDate, Payment_id)
     const Scheme=joi.object({
         id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
-
         CardNumber:joi.string().min(16).max(18).required(),
         CvC : joi.string().min(3).max(4).required(),
         ExpireDate :joi.string().min().max(4).required(),

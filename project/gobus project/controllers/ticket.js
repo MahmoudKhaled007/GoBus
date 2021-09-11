@@ -27,6 +27,7 @@ exports.selectTicket= (request,response)=>{
 exports.addTicket=(request,response)=>{
 
     const knex = request.app.locals.knex
+
     const passenger_id = request.body.passenger_id
     const creditcard_id = request.body.creditcard_id
     const trip_id = request.body.trip_id
@@ -42,8 +43,25 @@ if(!passenger_id||!creditcard_id||!trip_id||!trip_bus_id||!Code){
 }
 
 
-const ticket2= new ticket (passenger_id , creditcard_id , trip_id , trip_bus_id , trip_bus_id , Code)
+const ticket2= new ticket (passenger_id , creditcard_id , trip_id , trip_bus_id , Code)
+const Scheme=joi.object({
+    passenger_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    creditcard_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    trip_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    trip_bus_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    Code :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),      
 
+})
+
+const joiErrorr= Scheme.validate(ticket2)
+if (joiErrorr.error) {
+
+    console.log(joiErrorr.error.details);
+    return response.status(400).json({
+        status: "error",
+        msg: "400 Bad Request JOI"
+    })
+}
 
 knex("trip")
 .insert({
@@ -89,7 +107,25 @@ if(!passenger_id||!creditcard_id||!trip_id||!trip_bus_id||!Code){
 }
 
 
-const ticket2= new ticket (passenger_id , creditcard_id , trip_id , trip_bus_id , trip_bus_id , Code)
+const ticket2= new ticket (passenger_id , creditcard_id , trip_id , trip_bus_id , Code)
+const Scheme=joi.object({
+    passenger_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    creditcard_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    trip_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    trip_bus_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    Code :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),      
+
+})
+
+const joiErrorr= Scheme.validate(ticket2)
+if (joiErrorr.error) {
+
+    console.log(joiErrorr.error.details);
+    return response.status(400).json({
+        status: "error",
+        msg: "400 Bad Request JOI"
+    })
+}
 
     knex('ticket')
         .where('Code', '=', ticket2.Code)
