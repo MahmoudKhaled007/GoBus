@@ -27,11 +27,11 @@ exports.addPayment=(request,response)=>{
 
     const knex = request.app.locals.knex
 
-    const id = request.body.id
     const PaymentType = request.body.PaymentType
- 
+    const Code = request.body.Code
 
-if(!id||!PaymentType){
+
+if(!Code||!PaymentType){
     return response.status(400).json({
         status: "error",
         msg: "400 Bad Request"
@@ -40,9 +40,9 @@ if(!id||!PaymentType){
 }
 
 
-const pay= new payment (id , PaymentType)
+const pay= new payment ( PaymentType,Code)
 const Scheme=joi.object({
-    id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    Code : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     PaymentType :joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{1,20}/).required(),      
 
 })
@@ -59,7 +59,7 @@ if (joiErrorr.error) {
 
 knex("payment")
 .insert({
-    id : pay.id,
+    Code : pay.Code,
     PaymentType : pay.PaymentType
 })
 .then(data=>{
@@ -89,41 +89,41 @@ knex("payment")
 exports.updatePayment = (request, response) => {
     const knex = request.app.locals.knex
 
-    const id = request.body.id
     const PaymentType = request.body.PaymentType
+    const Code = request.body.Code
+
  
-if(!id||!Code){
-    return response.status(400).json({
-        status: "error",
-        msg: "400 Bad Request"
+
+    if(!Code||!PaymentType){
+        return response.status(400).json({
+            status: "error",
+            msg: "400 Bad Request"
+        })
+    
+    }
+    
+    
+    const pay= new payment ( PaymentType,Code)
+    const Scheme=joi.object({
+        Code : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+        PaymentType :joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{1,20}/).required(),      
+    
     })
-
-}
-
-
-const pay= new payment (id,PaymentType)
-const Scheme=joi.object({
-    id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
-    PaymentType :joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{1,20}/).required(),      
-
-})
-
-const joiErrorr= Scheme.validate(pay)
-if (joiErrorr.error) {
-
-    console.log(joiErrorr.error.details);
-    return response.status(400).json({
-        status: "error",
-        msg: "400 Bad Request JOI"
-    })
-}
-
+    
+    const joiErrorr= Scheme.validate(pay)
+    if (joiErrorr.error) {
+    
+        console.log(joiErrorr.error.details);
+        return response.status(400).json({
+            status: "error",
+            msg: "400 Bad Request JOI"
+        })
+    }
     knex('payment')
         .where('Code', '=', pay.id)
         .update({
-            id : pay.id,
-            creditcard_id : pay.PaymentTypet,
-            
+            Code : pay.Code,
+            PaymentType : pay.PaymentType
         })
         .then(data => {
             response.status(200).json({
