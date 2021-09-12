@@ -4,7 +4,6 @@ const PasController = require("../controllers/user")
 
  const TripController = require("../controllers/trip")
  const PaymentController = require("../controllers/payment")
- const BusController = require("../controllers/bus")
  const CreditController = require("../controllers/credit")
  const TicketConroller = require("../controllers/ticket")
  
@@ -25,7 +24,8 @@ const PasController = require("../controllers/user")
  
  
  
- 
+ //----------SHOW ALL TRIP DETAILS-------------
+ PasRouter.get("/trip/detail/",MiddelWares.checkPasAuth,TripController.TripDetail)
 
  
  //----------CREDIT-------------

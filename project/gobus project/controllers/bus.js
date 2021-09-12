@@ -1,4 +1,3 @@
-// const bcrypt = require("bcrypt")
 const bus = require("../models/bus")
 const jwt = require('jsonwebtoken');
 const joi = require("joi")

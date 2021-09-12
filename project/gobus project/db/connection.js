@@ -4,7 +4,7 @@ exports.openConnection = () => {
         connection: {
             host: 'localhost',
             user: 'root',
-            password: '56734',
+            password: 'mahmoud2001',
             database: 'go_bus'
         }
     });

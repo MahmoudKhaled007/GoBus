@@ -12,7 +12,7 @@ exports.selectMyTicket= (request,response)=>{
 
 
     knex
-    .select('ticket.Code as Ticket Code','passenger.Code as Passenger Code','passenger.Name as Passenger Name' , 'trip.Code as Trip Code','trip.DepTime as Departure Time','trip.ArTime as Arrival Time','ticket.SeatNumber as Seat Number','bus.Code as Bus Code','bus.BusClass as Bus Class')
+    .select('ticket.Code as Ticket Code','passenger.Code as Passenger Code','passenger.Name as Passenger Name' , 'trip.Code as Trip Code','trip.DepTime as Departure Time','trip.ArTime as Arrival Time','trip.From as From','trip.To as To','ticket.SeatNumber as Seat Number','bus.Code as Bus Code','bus.BusClass as Bus Class')
     .from('ticket')
     .where('ticket.Code', '=', ticketCode)
     .where('ticket.is_deleted','=','0'  )

@@ -40,8 +40,9 @@ if(!Code||!PaymentType){
 }
 
 
-const pay= new payment ( PaymentType,Code)
+const pay= new payment ("1", PaymentType,Code)
 const Scheme=joi.object({
+    id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     Code : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     PaymentType :joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{1,20}/).required(),      
 
@@ -103,8 +104,9 @@ exports.updatePayment = (request, response) => {
     }
     
     
-    const pay= new payment ( PaymentType,Code)
+    const pay= new payment ("1", PaymentType,Code)
     const Scheme=joi.object({
+        id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
         Code : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
         PaymentType :joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{1,20}/).required(),      
     

@@ -5,10 +5,11 @@ const joi = require("joi")
 
 exports.TripDetail = (request,response )=>{
     const knex = request.app.locals.knex
-    knex.select('trip.DepTime', 'trip.ArTime', 'bus.code', 'bus.BusClass', 'grades.id', 'AvailSeats', 'BookedSeats')
-    .from('go_bus.trip')
-    .innerJoin('go_bus.bus', 'go_bus.trip.bus_id', 'go_bus.bus.id') 
-    .where('trip.is_delited', 1)
+    knex
+    .select( 'trip.Code as Trip Code','trip.DepTime as Departure Time','trip.ArTime as Arrival Time','trip.From as From','trip.To as To','bus.Code as Bus Code','bus.BusClass as Bus Class','bus.BookedSeats as Booked Seats','bus.AvailSeats as Available Seats')
+    .from('trip')
+    .innerJoin('bus', 'trip.bus_id', 'bus.id') 
+    .where('bus.is_deleted','=','0'  )
 .then(trip=>{
 response.status(200).json(trip)
     
@@ -25,7 +26,7 @@ response.status(500).json({
 exports.selectTrip = (request,response )=>{
     const knex = request.app.locals.knex
 knex("trip")
-.select("Code","DepTime","ArTime","SeatNumber")
+.select("Code","DepTime","ArTime","SeatNumber","From","To")
 .then(trip=>{
 response.status(200).json(trip)
     
@@ -45,10 +46,11 @@ exports.addTrip = (request,response)=>{
     const Code= request.body.Code
     const DepTime = request.body.DepTime
     const ArTime = request.body.ArTime
-    const SeatNumber = request.body.SeatNumber
     const bus_id = request.body.bus_id
+    const From = request.body.From
+    const To = request.body.To
 
-if(!Code||!DepTime||!ArTime||!SeatNumber||!bus_id){
+if(!Code||!DepTime||!ArTime||!bus_id||!From||!To){
     return response.status(400).json({
         status: "error",
         msg: "400 Bad Request"
@@ -57,17 +59,19 @@ if(!Code||!DepTime||!ArTime||!SeatNumber||!bus_id){
 }
 
 
-const trip1= new trip ("1",Code,DepTime,ArTime,SeatNumber,bus_id)
+const trip2= new trip ("1",Code,DepTime,ArTime,bus_id,From,To)
 const Scheme=joi.object({
     id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     Code : joi.string().not().empty().min(1).max(20).pattern(/[0-9]{1,20}/).required(),
-    DepTime :joi.date().required(),
-    ArTime  :joi.date().required(),     
-    SeatNumber: joi.string().min(1).max(4).required(),
-    bus_id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    DepTime :joi.string().required().pattern(/[12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]) (0[0-9]|1[0-9]|2[1-4]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])/),
+    ArTime  :joi.string().required().pattern(/[12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]) (0[0-9]|1[0-9]|2[1-4]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])/),    
+    bus_id: joi.number().not().empty().min(1).max(50).required(),
+    From:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
+    To:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
+
 })
 
-    const joiErrorr= Scheme.validate(trip1)
+    const joiErrorr= Scheme.validate(trip2)
     if (joiErrorr.error) {
 
         console.log(joiErrorr.error.details);
@@ -80,11 +84,12 @@ const Scheme=joi.object({
 
     knex("trip")
         .insert({
-            Code : trip1.Code,
-            DepTime : trip1.DepTime,
-            ArTime : trip1.ArTime,
-            SeatNumber : trip1.SeatNumber,
-            bus_id : trip1.bus_id
+            Code : trip2.Code,
+            DepTime : trip2.DepTime,
+            ArTime : trip2.ArTime,
+            bus_id : trip2.bus_id,
+            From : trip2.From,
+            To : trip2.To
         })
         .then(data=>{
             response.status(201).json({
@@ -108,50 +113,53 @@ const Scheme=joi.object({
 
 exports.updateTrip = (request, response) => {
     const knex = request.app.locals.knex
-    
-    const Code = request.body.Code
+
+    const Code= request.body.Code
     const DepTime = request.body.DepTime
     const ArTime = request.body.ArTime
-    const SeatNumber = request.body.SeatNumber
     const bus_id = request.body.bus_id
+    const From = request.body.From
+    const To = request.body.To
 
-    if(!Code||!DepTime||!ArTime||!SeatNumber||!bus_id){
-
-        return response.status(400).json({
-            status: "error",
-            msg: "400 Bad Request"
-        })
-
-    }
-
-    const trip2= new trip ("1",Code,DepTime,ArTime,SeatNumber,bus_id)
-    const Scheme=joi.object({
-        id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
-        Code : joi.string().not().empty().min(1).max(20).pattern(/[0-9]{1,20}/).required(),
-        DepTime :joi.date().required(),//2017-10-20 18:57:53.382
-        ArTime  :joi.date().required(),      
-        SeatNumber: joi.string().min(1).max(4).required(),
-        bus_id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+if(!Code||!DepTime||!ArTime||!bus_id||!From||!To){
+    return response.status(400).json({
+        status: "error",
+        msg: "400 Bad Request"
     })
 
-        const joiErrorr= Scheme.validate(trip2)
-        if (joiErrorr.error) {
+}
 
-            console.log(joiErrorr.error.details);
-            return response.status(400).json({
-                status: "error",
-                msg: "400 Bad Request JOI"
-            })
-        }
 
+const trip2= new trip ("1",Code,DepTime,ArTime,bus_id,From,To)
+const Scheme=joi.object({
+    id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
+    Code : joi.string().not().empty().min(1).max(20).pattern(/[0-9]{1,20}/).required(),
+    DepTime :joi.string().required().pattern(/[12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]) (0[0-9]|1[0-9]|2[1-4]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])/),
+    ArTime  :joi.string().required().pattern(/[12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]) (0[0-9]|1[0-9]|2[1-4]):(0[0-9]|[1-5][0-9]):(0[0-9]|[1-5][0-9])/),    
+    bus_id: joi.number().not().empty().min(1).max(50).required(),
+    From:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
+    To:joi.string().not().empty().min(3).max(50).pattern(/[a-z A-Z]{3,50}/).required(),
+
+})
+
+    const joiErrorr= Scheme.validate(trip2)
+    if (joiErrorr.error) {
+
+        console.log(joiErrorr.error.details);
+        return response.status(400).json({
+            status: "error",
+            msg: "400 Bad Request JOI"
+        })
+    }
     knex('trip')
         .where('Code', '=', trip2.Code)
         .update({
-                Code: trip2.Code,
-                DepTime: trip2.DepTime,
-                ArTime: trip2.ArTime,
-                SeatNumber: trip2.SeatNumber,
-                bus_id: trip2.bus_id,
+            Code : trip2.Code,
+            DepTime : trip2.DepTime,
+            ArTime : trip2.ArTime,
+            bus_id : trip2.bus_id,
+            From : trip2.From,
+            To : trip2.To
         })
         .then(data => {
             response.status(200).json({
