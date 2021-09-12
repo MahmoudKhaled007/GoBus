@@ -151,7 +151,7 @@ exports.deleteTrip = (request, response) => {
 
 
     knex('payment')
-        .where('id', '=', request.body.Code)
+        .where('id', '=', request.body.id)
         .update({
             is_deleted: '1',
         })
@@ -167,12 +167,12 @@ exports.deleteTrip = (request, response) => {
 }
 
 
-exports.restorepay = (request, response) => {
+exports.restorePay = (request, response) => {
     const knex = request.app.locals.knex
 
 
     knex('payment')
-        .where('id', '=', request.body.Code)
+        .where('id', '=', request.body.id)
         .update({
             is_deleted: '0',
         })
