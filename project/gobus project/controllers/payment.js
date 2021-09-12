@@ -120,7 +120,7 @@ exports.updatePayment = (request, response) => {
         })
     }
     knex('payment')
-        .where('Code', '=', pay.id)
+        .where('Code', '=', pay.Code)
         .update({
             Code : pay.Code,
             PaymentType : pay.PaymentType
