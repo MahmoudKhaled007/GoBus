@@ -3,10 +3,29 @@ const joi = require("joi")
 
 
 
+exports.TripDetail = (request,response )=>{
+    const knex = request.app.locals.knex
+    knex.select('trip.DepTime', 'trip.ArTime', 'bus.code', 'bus.BusClass', 'grades.id', 'AvailSeats', 'BookedSeats')
+    .from('go_bus.trip')
+    .innerJoin('go_bus.bus', 'go_bus.trip.bus_id', 'go_bus.bus.id') 
+    .where('trip.is_delited', 1)
+.then(trip=>{
+response.status(200).json(trip)
+    
+})
+.catch(error=>{
+console.log(error);
+response.status(500).json({
+    status: "error",
+    msg: "500 Internal Server Error"
+})
+})
+}
+
 exports.selectTrip = (request,response )=>{
     const knex = request.app.locals.knex
 knex("trip")
-.select("Code","DepTime","ArTime")
+.select("Code","DepTime","ArTime","SeatNumber")
 .then(trip=>{
 response.status(200).json(trip)
     
@@ -26,9 +45,10 @@ exports.addTrip = (request,response)=>{
     const Code= request.body.Code
     const DepTime = request.body.DepTime
     const ArTime = request.body.ArTime
+    const SeatNumber = request.body.SeatNumber
     const bus_id = request.body.bus_id
 
-if(!Code||!DepTime||!ArTime||!bus_id){
+if(!Code||!DepTime||!ArTime||!SeatNumber||!bus_id){
     return response.status(400).json({
         status: "error",
         msg: "400 Bad Request"
@@ -37,12 +57,13 @@ if(!Code||!DepTime||!ArTime||!bus_id){
 }
 
 
-const trip1= new trip ("1",Code,DepTime,ArTime,bus_id)
+const trip1= new trip ("1",Code,DepTime,ArTime,SeatNumber,bus_id)
 const Scheme=joi.object({
     id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     Code : joi.string().not().empty().min(1).max(20).pattern(/[0-9]{1,20}/).required(),
     DepTime :joi.date().required(),
     ArTime  :joi.date().required(),     
+    SeatNumber: joi.string().min(1).max(4).required(),
     bus_id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
 })
 
@@ -62,6 +83,7 @@ const Scheme=joi.object({
             Code : trip1.Code,
             DepTime : trip1.DepTime,
             ArTime : trip1.ArTime,
+            SeatNumber : trip1.SeatNumber,
             bus_id : trip1.bus_id
         })
         .then(data=>{
@@ -90,9 +112,10 @@ exports.updateTrip = (request, response) => {
     const Code = request.body.Code
     const DepTime = request.body.DepTime
     const ArTime = request.body.ArTime
+    const SeatNumber = request.body.SeatNumber
     const bus_id = request.body.bus_id
 
-    if(!Code||!DepTime||!ArTime||!bus_id){
+    if(!Code||!DepTime||!ArTime||!SeatNumber||!bus_id){
 
         return response.status(400).json({
             status: "error",
@@ -101,12 +124,13 @@ exports.updateTrip = (request, response) => {
 
     }
 
-    const trip2= new trip ("1",Code,DepTime,ArTime,bus_id)
+    const trip2= new trip ("1",Code,DepTime,ArTime,SeatNumber,bus_id)
     const Scheme=joi.object({
         id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
         Code : joi.string().not().empty().min(1).max(20).pattern(/[0-9]{1,20}/).required(),
         DepTime :joi.date().required(),//2017-10-20 18:57:53.382
         ArTime  :joi.date().required(),      
+        SeatNumber: joi.string().min(1).max(4).required(),
         bus_id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     })
 
@@ -126,6 +150,7 @@ exports.updateTrip = (request, response) => {
                 Code: trip2.Code,
                 DepTime: trip2.DepTime,
                 ArTime: trip2.ArTime,
+                SeatNumber: trip2.SeatNumber,
                 bus_id: trip2.bus_id,
         })
         .then(data => {
