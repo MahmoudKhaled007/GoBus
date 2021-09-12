@@ -27,7 +27,7 @@ exports.checkADAuth = (request, response, next) => {
 }
 
 
-exports.checkpasAuth = (request, response, next) => {
+exports.checkPasAuth = (request, response, next) => {
 
     const headerData = request.headers.authorization.split(" ")
     const token = headerData[1]

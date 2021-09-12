@@ -1,12 +1,11 @@
 const PaymentRauter = require("express").Router()
 const PaymentController = require("../controllers/payment")
-// const MiddelWares = require("../util/middelwares")
 
-PaymentRauter.get("/:id",PaymentController.selectpayment)
+PaymentRauter.get("/",PaymentController.selectPayment)
 
-PaymentRauter.post("/",PaymentController.addpayment)
+PaymentRauter.post("/",PaymentController.addPayment)
 
-PaymentRauter.put("/:idd",PaymentController.updatepayment)
+PaymentRauter.put("/:id",PaymentController.updatePayment)
 
 
 
