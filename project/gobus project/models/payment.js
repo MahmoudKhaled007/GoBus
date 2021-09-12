@@ -1,7 +1,8 @@
 class payment{
-    constructor(id,PaymentType){
+    constructor(id,PaymentType,Code){
     this.id=id
     this.PaymentType=PaymentType
+    this.Code=Code
 
     }
 
