@@ -139,25 +139,7 @@ exports.deleteTrip = (request, response) => {
         })
 }
 
-// exports.restoreTrip = (request, response) => {
-//     const knex = request.app.locals.knex
 
-
-//     knex('trip')
-//         .where('id', '=', request.body.id)
-//         .update({
-//             is_deleted: '0',
-//         })
-//         .then(data => {
-//             response.status(200).json({
-//                 status: "ok",
-//                 msg: "restored"
-//             })
-//         })
-//         .catch(err => {
-//             console.log("err");
-//         })
-// }
 exports.restoreTrip = (request, response) => {
     const knex = request.app.locals.knex
 
