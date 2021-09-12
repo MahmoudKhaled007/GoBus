@@ -5,7 +5,7 @@ PaymentRauter.get("/",PaymentController.selectPayment)
 
 PaymentRauter.post("/",PaymentController.addPayment)
 
-PaymentRauter.put("/:idd",PaymentController.updatepayment)
+PaymentRauter.put("/:id",PaymentController.updatePayment)
 
 
 module.exports = PaymentRauter

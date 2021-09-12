@@ -1,5 +1,5 @@
 class ticket{
-constructor(passenger_id,creditcard_id,trip_id,trip_bus_id,Code)
+constructor(passenger_id,creditcard_id,trip_id,trip_bus_id,Code,SeatNumber)
 {
     
     this.passenger_id=passenger_id
@@ -7,7 +7,7 @@ constructor(passenger_id,creditcard_id,trip_id,trip_bus_id,Code)
     this.trip_id=trip_id
     this.trip_bus_id=trip_bus_id
     this.Code=Code
-
+    this.SeatNumber=SeatNumber
 
 }
 

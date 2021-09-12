@@ -7,9 +7,33 @@ exports.selectMyTicket= (request,response)=>{
     const knex = request.app.locals.knex
 
     const ticketCode = request.body.ticketCode
-    knex("ticket")
-    .select("Code", "passenger_id", "creditcard_id", "trip_id", "trip_bus_id")
-    .where('Code', '=', ticketCode)   
+
+    // knex("ticket")
+    // .select('Code as TicketCode')
+    // .where('ticket.Code', ticketCode)
+    // .innerJoin('passenger', 'passenger.Code as UserID', 'passenger.Name as Name')    
+    // .innerJoin('creditcard', 'creditcard.id', 'pets.people_id')    
+    // .innerJoin('trip', 'trip.Code', 'trip.DepTime','trip.ArTime','trip.SeatNumber')    
+
+    // .then(results => res.json(results));
+
+    // knex.select('restaurants.id', 'name', 'cuisine', 'borough', 'grades.id', 'grade', 'date as inspectionDate', 'score')
+    // .from('restaurants')
+    // .where('restaurants.id', 1)
+    // .innerJoin('grades', 'restaurants.id', 'grades.restaurant_id')    
+
+
+
+
+    knex
+    .select('ticket.Code as Ticket Code','passenger.Code as Passenger Code','passenger.Name as Passenger Name' , 'trip.Code as Trip Code','trip.DepTime as Departure Time','trip.ArTime as Arrival Time','trip.SeatNumber as Seat Number')
+    .from('ticket')
+    .where('ticket.Code', '=', ticketCode)  
+    .innerJoin('passenger','ticket.passenger_id', 'passenger.id')    
+    .innerJoin('creditcard','ticket.creditcard_id', 'creditcard.id')    
+    .innerJoin('trip','ticket.trip_id', 'trip.id')    
+
+    
      .then(ticket => {
         response.status(200).json(ticket)
     })
@@ -58,8 +82,9 @@ exports.addTicket=(request,response)=>{
     const trip_id = request.body.trip_id
     const trip_bus_id = request.body.trip_bus_id
     const Code = request.body.Code
+    const SeatNumber = request.body.SeatNumber
 
-if(!passenger_id||!creditcard_id||!trip_id||!trip_bus_id||!Code){
+if(!passenger_id||!creditcard_id||!trip_id||!trip_bus_id||!Code||!SeatNumber){
     return response.status(400).json({
         status: "error",
         msg: "400 Bad Request"
@@ -68,13 +93,15 @@ if(!passenger_id||!creditcard_id||!trip_id||!trip_bus_id||!Code){
 }
 
 
-const ticket2= new ticket (passenger_id , creditcard_id , trip_id , trip_bus_id , Code)
+const ticket2= new ticket (passenger_id , creditcard_id , trip_id , trip_bus_id , Code,SeatNumber)
 const Scheme=joi.object({
     passenger_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     creditcard_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     trip_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     trip_bus_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     Code :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),      
+    SeatNumber: joi.string().min(1).max(4).required(),
+
 
 })
 
@@ -88,13 +115,15 @@ if (joiErrorr.error) {
     })
 }
 
-knex("trip")
+knex('ticket')
 .insert({
     passenger_id : ticket2.passenger_id,
     creditcard_id : ticket2.creditcard_id,
     trip_id : ticket2.trip_id,
     trip_bus_id : ticket2.trip_bus_id,
-    Code : ticket2.Code
+    Code : ticket2.Code,
+    SeatNumber : trip1.SeatNumber,
+
 })
 .then(data=>{
     response.status(201).json({
@@ -116,14 +145,14 @@ knex("trip")
 }
 
 exports.updateTicket = (request, response) => {
-    const knex = request.app.locals.knex
     const passenger_id = request.body.passenger_id
     const creditcard_id = request.body.creditcard_id
     const trip_id = request.body.trip_id
     const trip_bus_id = request.body.trip_bus_id
     const Code = request.body.Code
+    const SeatNumber = request.body.SeatNumber
 
-if(!passenger_id||!creditcard_id||!trip_id||!trip_bus_id||!Code){
+if(!passenger_id||!creditcard_id||!trip_id||!trip_bus_id||!Code||!SeatNumber){
     return response.status(400).json({
         status: "error",
         msg: "400 Bad Request"
@@ -132,13 +161,15 @@ if(!passenger_id||!creditcard_id||!trip_id||!trip_bus_id||!Code){
 }
 
 
-const ticket2= new ticket (passenger_id , creditcard_id , trip_id , trip_bus_id , Code)
+const ticket2= new ticket (passenger_id , creditcard_id , trip_id , trip_bus_id , Code,SeatNumber)
 const Scheme=joi.object({
     passenger_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     creditcard_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     trip_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     trip_bus_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     Code :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),      
+    SeatNumber: joi.string().min(1).max(4).required(),
+
 
 })
 
@@ -151,7 +182,6 @@ if (joiErrorr.error) {
         msg: "400 Bad Request JOI"
     })
 }
-
     knex('ticket')
         .where('Code', '=', ticket2.Code)
         .update({
