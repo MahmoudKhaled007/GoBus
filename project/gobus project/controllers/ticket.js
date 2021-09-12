@@ -8,30 +8,24 @@ exports.selectMyTicket= (request,response)=>{
 
     const ticketCode = request.body.ticketCode
 
-    // knex("ticket")
-    // .select('Code as TicketCode')
-    // .where('ticket.Code', ticketCode)
-    // .innerJoin('passenger', 'passenger.Code as UserID', 'passenger.Name as Name')    
-    // .innerJoin('creditcard', 'creditcard.id', 'pets.people_id')    
-    // .innerJoin('trip', 'trip.Code', 'trip.DepTime','trip.ArTime','trip.SeatNumber')    
-
-    // .then(results => res.json(results));
-
-    // knex.select('restaurants.id', 'name', 'cuisine', 'borough', 'grades.id', 'grade', 'date as inspectionDate', 'score')
-    // .from('restaurants')
-    // .where('restaurants.id', 1)
-    // .innerJoin('grades', 'restaurants.id', 'grades.restaurant_id')    
-
-
+   
 
 
     knex
-    .select('ticket.Code as Ticket Code','passenger.Code as Passenger Code','passenger.Name as Passenger Name' , 'trip.Code as Trip Code','trip.DepTime as Departure Time','trip.ArTime as Arrival Time','trip.SeatNumber as Seat Number')
+    .select('ticket.Code as Ticket Code','passenger.Code as Passenger Code','passenger.Name as Passenger Name' , 'trip.Code as Trip Code','trip.DepTime as Departure Time','trip.ArTime as Arrival Time','ticket.SeatNumber as Seat Number','bus.Code as Bus Code','bus.BusClass as Bus Class')
     .from('ticket')
-    .where('ticket.Code', '=', ticketCode)  
+    .where('ticket.Code', '=', ticketCode)
+    .where('ticket.is_deleted','=','0'  )
+    .where('passenger.is_deleted','=','0'  )
+    .where('creditcard.is_deleted','=','0'  )
+    .where('trip.is_deleted','=','0'  )
+    .where('bus.is_deleted','=','0'  )
+
+
     .innerJoin('passenger','ticket.passenger_id', 'passenger.id')    
     .innerJoin('creditcard','ticket.creditcard_id', 'creditcard.id')    
     .innerJoin('trip','ticket.trip_id', 'trip.id')    
+    .innerJoin('bus','ticket.trip_bus_id', 'bus.id')    
 
     
      .then(ticket => {

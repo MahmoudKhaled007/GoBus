@@ -38,7 +38,7 @@ const PasController = require("../controllers/user")
  
  //----------TICKET-------------
  
- 
+ PasRouter.get("/ticket",MiddelWares.checkPasAuth,TicketConroller.selectMyTicket)
  PasRouter.post("/ticket",MiddelWares.checkPasAuth,TicketConroller.addTicket)
  PasRouter.put("/ticket/:id",MiddelWares.checkPasAuth,TicketConroller.updateTicket)
  PasRouter.delete("/ticket/:id",MiddelWares.checkPasAuth,TicketConroller.deleteTicket)

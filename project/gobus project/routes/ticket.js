@@ -7,7 +7,7 @@ const TicketConroller = require("../controllers/ticket")
 // TicketRouter.delete("/:id",TicketConroller.deleteTicket)
 // TicketRouter.patch("/:id",TicketConroller.restoreTTicket)
 
-TicketRouter.get("/",TicketConroller.selectMyTicket)
+// TicketRouter.get("/",TicketConroller.selectMyTicket)
 
 
 
