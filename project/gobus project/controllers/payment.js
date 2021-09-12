@@ -141,3 +141,48 @@ if (joiErrorr.error) {
         })
 
 }
+
+
+
+
+
+exports.deleteTrip = (request, response) => {
+    const knex = request.app.locals.knex
+
+
+    knex('payment')
+        .where('id', '=', request.body.Code)
+        .update({
+            is_deleted: '1',
+        })
+        .then(data => {
+            response.status(200).json({
+                status: "ok",
+                msg: "deleted"
+            })
+        })
+        .catch(err => {
+            console.log(err);
+        })
+}
+
+
+exports.restorepay = (request, response) => {
+    const knex = request.app.locals.knex
+
+
+    knex('payment')
+        .where('id', '=', request.body.Code)
+        .update({
+            is_deleted: '0',
+        })
+        .then(data => {
+            response.status(200).json({
+                status: "ok",
+                msg: "restored"
+            })
+        })
+        .catch(err => {
+            console.log("err");
+        })
+}
