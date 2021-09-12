@@ -61,7 +61,7 @@ CREATE TABLE `bus` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_deleted` varchar(45) COLLATE utf8_unicode_ci DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `bus` (
 
 LOCK TABLES `bus` WRITE;
 /*!40000 ALTER TABLE `bus` DISABLE KEYS */;
-INSERT INTO `bus` VALUES (1,'1','luxuery',20,50,'2021-09-10 20:05:27','1'),(2,'2','luxuery',20,50,'2021-09-10 20:03:13','0'),(3,'1','luxuery',20,50,'2021-09-11 13:28:58','0');
+INSERT INTO `bus` VALUES (1,'1','luxuery',20,50,'2021-09-12 19:21:10','0'),(2,'2','luxuery',20,50,'2021-09-10 20:03:13','0'),(3,'3','Deluxe',20,50,'2021-09-12 19:04:29','0'),(4,'4','Classic',10,40,'2021-09-12 19:04:04','0');
 /*!40000 ALTER TABLE `bus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -101,7 +101,7 @@ CREATE TABLE `creditcard` (
 
 LOCK TABLES `creditcard` WRITE;
 /*!40000 ALTER TABLE `creditcard` DISABLE KEYS */;
-INSERT INTO `creditcard` VALUES (1,'$2b$10$aOZMTxs7rJw9pulxXrKSYOvFGW.CcXda7N/n4oS/wDAHgCaSZB6ra','1234',2023,'2021-09-10 18:48:19','1',1),(2,'$2b$10$w37c.ynj5QwVwrl8Bk1c7.dwl0v3qhdHsuhKsQLu3VYS7OkTExqHC','$2b$10$VwDoCWMkUIwM6qfJGiwPD.M3DXuiNxzl53I5I/sFO3lvCfTbbvmZW',2023,'2021-09-10 18:37:44','0',2),(3,'$2b$10$durK2h3TsSem9iZ2q30reeHdFxINF/b3G.G/UVXSAqHxiTMWvM7MO','$2b$10$3b/RbMo/b0UgAawltBslEe4BndIZi9vxotczLRQF9i116xTtgkYhq',2025,'2021-09-10 19:52:27','0',1);
+INSERT INTO `creditcard` VALUES (1,'$2b$10$aOZMTxs7rJw9pulxXrKSYOvFGW.CcXda7N/n4oS/wDAHgCaSZB6ra','1234',2023,'2021-09-12 19:21:20','0',1),(2,'$2b$10$w37c.ynj5QwVwrl8Bk1c7.dwl0v3qhdHsuhKsQLu3VYS7OkTExqHC','$2b$10$VwDoCWMkUIwM6qfJGiwPD.M3DXuiNxzl53I5I/sFO3lvCfTbbvmZW',2023,'2021-09-10 18:37:44','0',2),(3,'$2b$10$durK2h3TsSem9iZ2q30reeHdFxINF/b3G.G/UVXSAqHxiTMWvM7MO','$2b$10$3b/RbMo/b0UgAawltBslEe4BndIZi9vxotczLRQF9i116xTtgkYhq',2025,'2021-09-10 19:52:27','0',1);
 /*!40000 ALTER TABLE `creditcard` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +131,7 @@ CREATE TABLE `passenger` (
 
 LOCK TABLES `passenger` WRITE;
 /*!40000 ALTER TABLE `passenger` DISABLE KEYS */;
-INSERT INTO `passenger` VALUES (1,'1','user1','0100','aaaa','123','2021-09-10 20:13:00','1'),(2,'2','010','aaaaa','aaaaa@yaaa','$2b$10$KI471sM26fX08hag6hTszOsQfbvR8nhbDNi3RNigwWW4agkEr11Km','2021-09-06 02:42:36','0'),(3,'22','01000','mahmoud','aaaa','$2b$10$HQYQ0cMFIfiCnG.jDSD/kOhXvcOIQnlubHqw8y/xPesqnOQkQgfBG','2021-09-08 17:58:25','0'),(4,'22','01000','mahmoud','aaaa','$2b$10$rDm8yEYRKVTfIm.uIHPeNuxmlHLJSks/hTgibhIssDzM.qgEuzuZi','2021-09-08 20:21:42','0'),(5,'22','01000','mahmoud111','aaaa','$2b$10$roufVapcqP5lp583jfxzLOTDLCeMlZVx8rRHRwcUt31QKQ6j5oFEy','2021-09-08 20:21:46','0'),(6,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(7,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(8,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(9,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(10,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(11,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(12,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(13,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(14,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(15,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(16,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(17,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(18,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(19,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(20,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(21,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(22,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0');
+INSERT INTO `passenger` VALUES (1,'1','user1','0100','aaaa','123','2021-09-12 19:20:59','0'),(2,'2','010','aaaaa','aaaaa@yaaa','$2b$10$KI471sM26fX08hag6hTszOsQfbvR8nhbDNi3RNigwWW4agkEr11Km','2021-09-06 02:42:36','0'),(3,'22','01000','mahmoud','aaaa','$2b$10$HQYQ0cMFIfiCnG.jDSD/kOhXvcOIQnlubHqw8y/xPesqnOQkQgfBG','2021-09-08 17:58:25','0'),(4,'22','01000','mahmoud','aaaa','$2b$10$rDm8yEYRKVTfIm.uIHPeNuxmlHLJSks/hTgibhIssDzM.qgEuzuZi','2021-09-08 20:21:42','0'),(5,'22','01000','mahmoud111','aaaa','$2b$10$roufVapcqP5lp583jfxzLOTDLCeMlZVx8rRHRwcUt31QKQ6j5oFEy','2021-09-08 20:21:46','0'),(6,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(7,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(8,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(9,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(10,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(11,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(12,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(13,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(14,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(15,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(16,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(17,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(18,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(19,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(20,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(21,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0'),(22,'113','user1','01005647891','aaaaaaaaaaaaa','$2b$10$8kw9OW4s72SvlFg.Y4U7Vebmd3RmAD4ULaPlkLd/KFTs1ClFBP9OW','2021-09-10 20:11:27','0');
 /*!40000 ALTER TABLE `passenger` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,6 +176,8 @@ CREATE TABLE `ticket` (
   `trip_bus_id` int NOT NULL,
   `Code` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `SeatNumber` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `is_deleted` varchar(45) COLLATE utf8_unicode_ci DEFAULT '0',
   PRIMARY KEY (`passenger_id`,`creditcard_id`,`trip_id`,`trip_bus_id`),
   KEY `fk_ticket_passenger1_idx` (`passenger_id`),
   KEY `fk_ticket_creditcard1_idx` (`creditcard_id`),
@@ -192,7 +194,7 @@ CREATE TABLE `ticket` (
 
 LOCK TABLES `ticket` WRITE;
 /*!40000 ALTER TABLE `ticket` DISABLE KEYS */;
-INSERT INTO `ticket` VALUES (1,1,2,1,'1',NULL);
+INSERT INTO `ticket` VALUES (1,1,2,1,'1',1,'2021-09-12 19:12:34','0'),(1,1,4,3,'3',2,'2021-09-12 19:12:34','0'),(2,2,5,2,'2',10,'2021-09-12 19:21:38','0');
 /*!40000 ALTER TABLE `ticket` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -211,10 +213,12 @@ CREATE TABLE `trip` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_deleted` varchar(45) COLLATE utf8_unicode_ci DEFAULT '0',
   `bus_id` int NOT NULL,
+  `From` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `To` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`,`bus_id`),
   KEY `fk_trip_bus1_idx` (`bus_id`),
   CONSTRAINT `fk_trip_bus1` FOREIGN KEY (`bus_id`) REFERENCES `bus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -223,7 +227,7 @@ CREATE TABLE `trip` (
 
 LOCK TABLES `trip` WRITE;
 /*!40000 ALTER TABLE `trip` DISABLE KEYS */;
-INSERT INTO `trip` VALUES (2,'1','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-10 16:25:36','1',1),(3,'1','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-10 16:25:36','1',1),(4,'1','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-10 16:25:36','1',1),(5,'3','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-11 13:25:52','0',1);
+INSERT INTO `trip` VALUES (2,'1','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-12 19:56:00','0',1,'Cairo','Ain-Sokhna'),(3,'2','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-12 19:56:00','0',1,'Cairo','Alexaxndria'),(4,'3','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-12 19:56:00','0',3,'Alexandria','Cairo'),(5,'3','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-12 19:56:00','0',2,'Cairo ','Hurghada'),(6,'4','2021-02-23 13:13:12','2021-02-25 13:13:12','2021-09-12 19:56:01','0',3,'Hurghada','Cairo'),(7,'4','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-12 20:32:05','0',1,'Cairo','Alexxx'),(8,'4','2021-02-23 13:13:12','2021-02-24 13:13:12','2021-09-12 20:33:32','0',1,'Cairo','Alexxx');
 /*!40000 ALTER TABLE `trip` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -236,4 +240,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-12 20:57:42
+-- Dump completed on 2021-09-12 23:14:50
