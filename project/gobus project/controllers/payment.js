@@ -3,7 +3,7 @@ const joi = require("joi")
 const jwt = require('jsonwebtoken')
 
 
-exports.selectpayment= (request,response)=>{
+exports.selectPayment= (request,response)=>{
 
     const knex = request.app.locals.knex
 
@@ -23,7 +23,7 @@ exports.selectpayment= (request,response)=>{
 }
 
 
-exports.addpayment=(request,response)=>{
+exports.addPayment=(request,response)=>{
 
     const knex = request.app.locals.knex
 
@@ -86,7 +86,7 @@ knex("payment")
 
 
 
-exports.updatepayment = (request, response) => {
+exports.updatePayment = (request, response) => {
     const knex = request.app.locals.knex
 
     const id = request.body.id

@@ -2,6 +2,31 @@ const ticket=require("../models/ticket")
 const joi = require("joi")
 const jwt = require('jsonwebtoken');
 
+exports.selectMyTicket= (request,response)=>{
+
+    const knex = request.app.locals.knex
+
+    const ticketCode = request.body.ticketCode
+    knex("ticket")
+    .select("Code", "passenger_id", "creditcard_id", "trip_id", "trip_bus_id")
+    .where('Code', '=', ticketCode)   
+     .then(ticket => {
+        response.status(200).json(ticket)
+    })
+    .catch(error => {
+        console.log(error);
+        response.status(500).json({
+            status: "error",
+            msg: "500 Internal Server Error"
+        })
+    })
+
+}
+
+
+
+
+
 
 exports.selectTicket= (request,response)=>{
 

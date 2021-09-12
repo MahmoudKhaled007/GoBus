@@ -61,7 +61,7 @@ CREATE TABLE `bus` (
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_deleted` varchar(45) COLLATE utf8_unicode_ci DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -70,7 +70,7 @@ CREATE TABLE `bus` (
 
 LOCK TABLES `bus` WRITE;
 /*!40000 ALTER TABLE `bus` DISABLE KEYS */;
-INSERT INTO `bus` VALUES (1,'1','luxuery',20,50,'2021-09-10 20:05:27','1'),(2,'2','luxuery',20,50,'2021-09-10 20:03:13','0');
+INSERT INTO `bus` VALUES (1,'1','luxuery',20,50,'2021-09-10 20:05:27','1'),(2,'2','luxuery',20,50,'2021-09-10 20:03:13','0'),(3,'1','luxuery',20,50,'2021-09-11 13:28:58','0');
 /*!40000 ALTER TABLE `bus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,6 +147,7 @@ CREATE TABLE `payment` (
   `PaymentType` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   `is_deleted` varchar(45) COLLATE utf8_unicode_ci DEFAULT '0',
+  `Code` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -157,7 +158,7 @@ CREATE TABLE `payment` (
 
 LOCK TABLES `payment` WRITE;
 /*!40000 ALTER TABLE `payment` DISABLE KEYS */;
-INSERT INTO `payment` VALUES (1,'Credit','2021-09-10 18:13:58','0'),(2,'Credit','2021-09-10 18:34:55','0');
+INSERT INTO `payment` VALUES (1,'Credit','2021-09-10 18:13:58','0',NULL),(2,'Credit','2021-09-10 18:34:55','0',NULL);
 /*!40000 ALTER TABLE `payment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,7 +213,7 @@ CREATE TABLE `trip` (
   PRIMARY KEY (`id`,`bus_id`),
   KEY `fk_trip_bus1_idx` (`bus_id`),
   CONSTRAINT `fk_trip_bus1` FOREIGN KEY (`bus_id`) REFERENCES `bus` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb3 COLLATE=utf8_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -221,7 +222,7 @@ CREATE TABLE `trip` (
 
 LOCK TABLES `trip` WRITE;
 /*!40000 ALTER TABLE `trip` DISABLE KEYS */;
-INSERT INTO `trip` VALUES (2,'1','2021-02-23 13:13:12','2021-02-24 13:13:12',5,'2021-09-10 16:25:36','1',1),(3,'1','2021-02-23 13:13:12','2021-02-24 13:13:12',10,'2021-09-10 16:25:36','1',1),(4,'1','2021-02-23 13:13:12','2021-02-24 13:13:12',10,'2021-09-10 16:25:36','1',1);
+INSERT INTO `trip` VALUES (2,'1','2021-02-23 13:13:12','2021-02-24 13:13:12',5,'2021-09-10 16:25:36','1',1),(3,'1','2021-02-23 13:13:12','2021-02-24 13:13:12',10,'2021-09-10 16:25:36','1',1),(4,'1','2021-02-23 13:13:12','2021-02-24 13:13:12',10,'2021-09-10 16:25:36','1',1),(5,'3','2021-02-23 13:13:12','2021-02-24 13:13:12',5,'2021-09-11 13:25:52','0',1);
 /*!40000 ALTER TABLE `trip` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -234,4 +235,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-09-11  2:55:27
+-- Dump completed on 2021-09-12 19:10:37
