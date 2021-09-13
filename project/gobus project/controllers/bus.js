@@ -3,6 +3,10 @@ const jwt = require('jsonwebtoken');
 const joi = require("joi")
 
 
+
+
+
+
 exports.selectBus = (request, response) => {
     const knex = request.app.locals.knex
     knex("bus")
@@ -79,7 +83,6 @@ exports.addBus = (request, response) => {
 
 
 
-   // });
 
 }
 
