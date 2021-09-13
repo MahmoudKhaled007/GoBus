@@ -31,11 +31,7 @@ ADRouter.patch("/user/:id",MiddelWares.checkADAuth,PasController.restorePas)
 ADRouter.get("/trip/",MiddelWares.checkADAuth,TripController.selectTrip)
 ADRouter.get("/trip/detail/",MiddelWares.checkADAuth,TripController.TripDetail)
 
-<<<<<<< HEAD
 ADRouter.post("/trip",MiddelWares.checkADAuth,TripController.addTrip)
-=======
-ADRouter.post("/trip/",MiddelWares.checkADAuth,TripController.addTrip)
->>>>>>> dad160502f7d5832974fc3c7a00d7a296ea1fecf
 ADRouter.put("/trip/:id",MiddelWares.checkADAuth,TripController.updateTrip)
 ADRouter.delete("/trip/:id",MiddelWares.checkADAuth,TripController.deleteTrip)
 ADRouter.patch("/trip/:id",MiddelWares.checkADAuth,TripController.restoreTrip)

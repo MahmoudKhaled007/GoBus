@@ -186,13 +186,8 @@ if (joiErrorr.error) {
             creditcard_id : ticket2.creditcard_id,
             trip_id : ticket2.trip_id,
             trip_bus_id : ticket2.trip_bus_id,
-<<<<<<< HEAD
-            Code : ticket2.Code
-            
-=======
             Code : ticket2.Code,
             SeatNumber : ticket2.SeatNumber,
->>>>>>> dad160502f7d5832974fc3c7a00d7a296ea1fecf
         })
         .then(data => {
             response.status(200).json({
