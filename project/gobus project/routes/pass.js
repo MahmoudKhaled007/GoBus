@@ -11,7 +11,7 @@ const PasController = require("../controllers/user")
  
  //----------USER-------------
  PasRouter.get("/",MiddelWares.checkPasAuth,PasController.selectUser)
- PasRouter.post("/login",MiddelWares.checkPasAuth,PasController.login)
+ PasRouter.post("/login",PasController.login)
 
  PasRouter.post("/",MiddelWares.checkPasAuth,PasController.addUser)
  PasRouter.post("/login",PasController.login)
