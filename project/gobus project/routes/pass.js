@@ -14,6 +14,7 @@ const PasController = require("../controllers/user")
  PasRouter.post("/login",MiddelWares.checkPasAuth,PasController.login)
 
  PasRouter.post("/",MiddelWares.checkPasAuth,PasController.addUser)
+ PasRouter.post("/login",PasController.login)
  PasRouter.put("/:id",MiddelWares.checkPasAuth,PasController.updatePas)
  PasRouter.delete("/:id",MiddelWares.checkPasAuth,PasController.deletePas)
  PasRouter.patch("/:id",MiddelWares.checkPasAuth,PasController.restorePas)

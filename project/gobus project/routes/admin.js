@@ -12,7 +12,7 @@ const MiddelWares = require("../util/middelwares")
 // -------ADMIN--------------
 ADRouter.get("/",ADController.selectADs)
 ADRouter.post("",ADController.addAD)
-ADRouter.post("/login",MiddelWares.checkADAuth,ADController.login)
+ADRouter.post("/login",ADController.login)
 
 ADRouter.put("/:id",MiddelWares.checkADAuth,ADController.updateAD)
 ADRouter.delete("/:id",MiddelWares.checkADAuth,ADController.deleteAd)
