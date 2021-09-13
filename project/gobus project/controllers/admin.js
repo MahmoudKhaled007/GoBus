@@ -45,8 +45,7 @@ exports.addAD = (request, response) => {
                 Name: joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{3,20}/).required(),
                 Code : joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),
                 PhoneNum :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{11}/).required(),
-                Email  :joi.string().not().empty().min(2).max(20).pattern(/[a-z A-Z]{10,100}/).required() ,      
-        
+                Email  :joi.string().not().empty().min(2).max(20).email().required() ,        
                 Password: joi.string().min(6).max(20).required(),
                 hashedPassword: joi.string().min(1).max(100).required(),
             })
@@ -190,8 +189,7 @@ exports.updateAD = (request, response) => {
                 Name: joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{3,20}/).required(),
                 Code : joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),
                 PhoneNum :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{11}/).required(),
-                Email  :joi.string().not().empty().min(2).max(20).pattern(/[a-z A-Z]{10,100}/).required() ,      
-        
+                Email  :joi.string().not().empty().min(2).max(20).email().required() ,        
                 Password: joi.string().min(6).max(20).required(),
                 hashedPassword: joi.string().min(1).max(100).required(),
             })

@@ -112,7 +112,7 @@ exports.addCredit = (request, response) => {
         id: joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
         CardNumber:joi.string().min(16).max(18).required(),
         CvC : joi.string().min(3).max(4).required(),
-        ExpireDate :joi.string().min().max(4).required(),
+        ExpireDate :joi.string().min(1).max(4).required(),
         Payment_id  :joi.string().min(1).max(50).required(),      
 
     })

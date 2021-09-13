@@ -116,7 +116,7 @@ knex('ticket')
     trip_id : ticket2.trip_id,
     trip_bus_id : ticket2.trip_bus_id,
     Code : ticket2.Code,
-    SeatNumber : trip1.SeatNumber,
+    SeatNumber : ticket2.SeatNumber,
 
 })
 .then(data=>{
@@ -184,6 +184,7 @@ if (joiErrorr.error) {
             trip_id : ticket2.trip_id,
             trip_bus_id : ticket2.trip_bus_id,
             Code : ticket2.Code
+            
         })
         .then(data => {
             response.status(200).json({
