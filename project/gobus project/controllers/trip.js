@@ -26,7 +26,7 @@ response.status(500).json({
 exports.selectTrip = (request,response )=>{
     const knex = request.app.locals.knex
 knex("trip")
-.select("Code","DepTime","ArTime","SeatNumber","From","To")
+.select("Code","DepTime","ArTime","From","To")
 .then(trip=>{
 response.status(200).json(trip)
     
