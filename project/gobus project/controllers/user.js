@@ -20,6 +20,23 @@ exports.selectUser = (request, response) => {
             })
         })
 }
+exports.ShowInfo = (request, response) => {
+    const knex = request.app.locals.knex
+
+    knex("passenger")
+        .select("id", "Code", "Name", "PhoneNum", "Email")
+        .where('Code', '=', request.body.Code)
+        .then(passenger => {
+            response.status(200).json(passenger)
+        })
+        .catch(error => {
+            console.log(error);
+            response.status(500).json({
+                status: "error",
+                msg: "500 Internal Server Error"
+            })
+        })
+}
 
 exports.addUser = (request, response) => {
     const knex = request.app.locals.knex

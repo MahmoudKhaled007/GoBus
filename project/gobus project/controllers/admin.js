@@ -45,8 +45,8 @@ exports.addAD = (request, response) => {
                 Name: joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{3,20}/).required(),
                 Code : joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),
                 PhoneNum :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{11}/).required(),
-                Email  :joi.string().not().empty().min(2).max(20).email().required() ,        
-                Password: joi.string().min(6).max(20).required(),
+                Email  :joi.string().not().empty().min(2).max(100).email().required() ,        
+                Password: joi.string().min(6).max(30).required(),
                 hashedPassword: joi.string().min(1).max(100).required(),
             })
         
@@ -189,8 +189,8 @@ exports.updateAD = (request, response) => {
                 Name: joi.string().not().empty().min(3).max(20).pattern(/[a-z A-Z]{3,20}/).required(),
                 Code : joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),
                 PhoneNum :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{11}/).required(),
-                Email  :joi.string().not().empty().min(2).max(20).email().required() ,        
-                Password: joi.string().min(6).max(20).required(),
+                Email  :joi.string().not().empty().min(2).max(100).email().required() ,        
+                Password: joi.string().min(6).max(30).required(),
                 hashedPassword: joi.string().min(1).max(100).required(),
             })
         
@@ -268,31 +268,13 @@ exports.deleteAd = (request, response) => {
         })
 }
 
-// exports.restoreTrip = (request, response) => {
-//     const knex = request.app.locals.knex
 
-
-//     knex('trip')
-//         .where('id', '=', request.body.id)
-//         .update({
-//             is_deleted: '0',
-//         })
-//         .then(data => {
-//             response.status(200).json({
-//                 status: "ok",
-//                 msg: "restored"
-//             })
-//         })
-//         .catch(err => {
-//             console.log("err");
-//         })
-// }
 exports.restoreAD = (request, response) => {
     const knex = request.app.locals.knex
 
 
     knex('ads')
-        .where('code', '=', request.body.Code)
+        .where('Code', '=', request.body.Code)
         .update({
             is_deleted: '0',
         })
