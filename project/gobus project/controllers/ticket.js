@@ -93,7 +93,7 @@ const Scheme=joi.object({
     creditcard_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     trip_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     trip_bus_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
-    Code :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),      
+    Code :joi.string().not().empty().min(1).max(20).pattern(/[0-9]{1,20}/).required(),      
     SeatNumber: joi.string().min(1).max(4).required(),
 
 
@@ -139,6 +139,8 @@ knex('ticket')
 }
 
 exports.updateTicket = (request, response) => {
+    const knex = request.app.locals.knex
+
     const passenger_id = request.body.passenger_id
     const creditcard_id = request.body.creditcard_id
     const trip_id = request.body.trip_id
@@ -161,7 +163,7 @@ const Scheme=joi.object({
     creditcard_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     trip_id : joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
     trip_bus_id :joi.string().not().empty().min(1).max(50).pattern(/[0-9]+/).required(),
-    Code :joi.string().not().empty().min(3).max(20).pattern(/[0-9]{1,20}/).required(),      
+    Code :joi.string().not().empty().min(1).max(20).pattern(/[0-9]{1,20}/).required(),      
     SeatNumber: joi.string().min(1).max(4).required(),
 
 
@@ -176,6 +178,7 @@ if (joiErrorr.error) {
         msg: "400 Bad Request JOI"
     })
 }
+
     knex('ticket')
         .where('Code', '=', ticket2.Code)
         .update({
@@ -183,8 +186,13 @@ if (joiErrorr.error) {
             creditcard_id : ticket2.creditcard_id,
             trip_id : ticket2.trip_id,
             trip_bus_id : ticket2.trip_bus_id,
+<<<<<<< HEAD
             Code : ticket2.Code
             
+=======
+            Code : ticket2.Code,
+            SeatNumber : ticket2.SeatNumber,
+>>>>>>> dad160502f7d5832974fc3c7a00d7a296ea1fecf
         })
         .then(data => {
             response.status(200).json({
