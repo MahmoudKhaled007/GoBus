@@ -38,8 +38,10 @@ const PasController = require("../controllers/user")
  PasRouter.delete("/credit/:id",MiddelWares.checkPasAuth,CreditController.deleteCredit)
  
  //----------TICKET-------------
- 
- PasRouter.get("/ticket",MiddelWares.checkPasAuth,TicketConroller.selectMyTicket)
+//  PasRouter.get("/ticket",TicketConroller.selectTicket)
+PasRouter.get("/ticket",TicketConroller.selectTicket)
+
+ PasRouter.get("/ticket/tic",TicketConroller.selectMyTicket)
  PasRouter.post("/ticket",MiddelWares.checkPasAuth,TicketConroller.addTicket)
  PasRouter.put("/ticket/:id",MiddelWares.checkPasAuth,TicketConroller.updateTicket)
  PasRouter.delete("/ticket/:id",MiddelWares.checkPasAuth,TicketConroller.deleteTicket)
